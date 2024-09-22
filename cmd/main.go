@@ -30,9 +30,6 @@ func main() {
 	}
 
 	slotHandler := discord.NewSlotHandler(*appConfig)
-	spinCommand := slotHandler.SpinCommand()
-
-	commands := []*discordgo.ApplicationCommand{spinCommand}
 
 	session.AddHandler(func(s *discordgo.Session, i *discordgo.InteractionCreate) {
 		if i.Type != discordgo.InteractionApplicationCommand {
@@ -50,6 +47,9 @@ func main() {
 	session.AddHandler(func(s *discordgo.Session, r *discordgo.Ready) {
 		log.Printf("Logged in as %s", r.User.String())
 	})
+
+	spinCommand := slotHandler.SpinCommand()
+	commands := []*discordgo.ApplicationCommand{spinCommand}
 
 	for _, guildID := range envConfig.GuildIDs {
 		_, err = session.ApplicationCommandBulkOverwrite(envConfig.AppID, guildID, commands)
