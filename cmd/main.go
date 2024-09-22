@@ -22,7 +22,7 @@ func main() {
 		log.Fatalf("Failed to load configuration: %v", err)
 	}
 
-	appConfig, err := config.ReadAppConfig("slots.json")
+	appConfig, err := config.ReadAppConfig(envConfig.AppConfigFile)
 	if err != nil {
 		log.Fatalf("Failed to read app config: %v", err)
 	}
@@ -54,9 +54,11 @@ func main() {
 		log.Printf("Logged in as %s", r.User.String())
 	})
 
-	_, err = session.ApplicationCommandBulkOverwrite(envConfig.AppID, envConfig.GuildID, commands)
-	if err != nil {
-		log.Fatalf("Failed to register commands: %v", err)
+	for _, guildID := range envConfig.GuildIDs {
+		_, err = session.ApplicationCommandBulkOverwrite(envConfig.AppID, guildID, commands)
+		if err != nil {
+			log.Fatalf("Failed to register commands: %v", err)
+		}
 	}
 
 	err = session.Open()

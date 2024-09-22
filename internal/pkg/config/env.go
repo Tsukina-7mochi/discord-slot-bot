@@ -3,6 +3,7 @@ package config
 import (
 	"errors"
 	"os"
+	"strings"
 )
 
 func loadEnv(name string) (string, error) {
@@ -25,14 +26,18 @@ func FromEnv() (*Config, error) {
 		return nil, err
 	}
 
-	guildID, err := loadEnv("GUILD_ID")
+	guildIDStr, err := loadEnv("GUILD_IDS")
 	if err != nil {
 		return nil, err
 	}
+	guildIDs := strings.Split(guildIDStr, ",")
+
+	appConfigName, err := loadEnv("APP_CONFIG_FILE")
 
 	return &Config{
-		Token:   token,
-		AppID:   appID,
-		GuildID: guildID,
+		Token:         token,
+		AppID:         appID,
+		GuildIDs:      guildIDs,
+		AppConfigFile: appConfigName,
 	}, nil
 }
