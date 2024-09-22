@@ -6,6 +6,13 @@ import (
 	"strings"
 )
 
+type EnvConfig struct {
+	Token         string
+	AppID         string
+	GuildIDs      []string
+	AppConfigFile string
+}
+
 func loadEnv(name string) (string, error) {
 	token := os.Getenv(name)
 	if len(token) == 0 {
@@ -15,7 +22,7 @@ func loadEnv(name string) (string, error) {
 	return token, nil
 }
 
-func FromEnv() (*Config, error) {
+func EnvConfigFromEnv() (*EnvConfig, error) {
 	token, err := loadEnv("TOKEN")
 	if err != nil {
 		return nil, err
@@ -34,7 +41,7 @@ func FromEnv() (*Config, error) {
 
 	appConfigName, err := loadEnv("APP_CONFIG_FILE")
 
-	return &Config{
+	return &EnvConfig{
 		Token:         token,
 		AppID:         appID,
 		GuildIDs:      guildIDs,
