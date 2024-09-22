@@ -1,5 +1,5 @@
 services:
-  prod:
+  local:
     build:
       context: '.'
       dockerfile: './Dockerfile'
@@ -9,3 +9,11 @@ services:
         source: ./
         target: /app/
     tty: true
+  prod:
+    image: ghcr.io/tsukina-7mochi/discord-slot-bot:latest
+    volumes:
+      - type: bind
+        source: ./
+        target: /app/
+    tty: true
+
