@@ -1,0 +1,11 @@
+services:
+  prod:
+    build:
+      context: '.'
+      dockerfile: './Dockerfile'
+      target: prod
+    volumes:
+      - type: bind
+        source: ./
+        target: /app/
+    tty: true
