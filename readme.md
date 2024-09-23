@@ -1,8 +1,18 @@
 # Slot Bot for Discord
 
+## Usage
+
+Use docker compose to launch your bot.
+
+```sh
+$ docker compose up prod
+```
+
 ## Configuration
 
 ### Environment Variables
+
+`.env` files are supported in current working directory.
 
 | Name              | Discription                         |
 | ----------------- | ----------------------------------- |
