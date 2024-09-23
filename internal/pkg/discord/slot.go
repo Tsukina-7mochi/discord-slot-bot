@@ -4,6 +4,7 @@ import (
 	"log"
 	"slot-bot/internal/pkg/config"
 	"slot-bot/internal/pkg/slot"
+	"strings"
 
 	"github.com/bwmarrin/discordgo"
 )
@@ -42,6 +43,12 @@ func (h *SlotHandler) SpinCommand() *discordgo.ApplicationCommand {
 				Choices:     choices,
 				Required:    true,
 			},
+			{
+				Name:        "spins",
+				Description: "Number of spins",
+				Type:        discordgo.ApplicationCommandOptionInteger,
+				Required:    false,
+			},
 		},
 	}
 
@@ -79,12 +86,22 @@ func (h *SlotHandler) HandleSpinCommand(s *discordgo.Session, i *discordgo.Inter
 	options := parseOptions(data.Options)
 	index := options["name"].IntValue()
 
-	result := h.Slots[index].Spin()
+	spins := 1
+	if options["spins"] != nil {
+		spins = int(options["spins"].IntValue())
+	}
+
+	var builder strings.Builder
+	for i := 0; i < spins; i++ {
+		result := h.Slots[index].Spin()
+		builder.WriteString(result)
+		builder.WriteString("\n")
+	}
 
 	err := s.InteractionRespond(i.Interaction, &discordgo.InteractionResponse{
 		Type: discordgo.InteractionResponseChannelMessageWithSource,
 		Data: &discordgo.InteractionResponseData{
-			Content: result,
+			Content: builder.String(),
 		},
 	})
 	if err != nil {
