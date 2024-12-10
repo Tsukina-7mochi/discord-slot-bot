@@ -7,10 +7,11 @@ import (
 )
 
 type EnvConfig struct {
-	Token         string
-	AppID         string
-	GuildIDs      []string
-	AppConfigFile string
+	Token          string
+	AppID          string
+	GuildIDs       []string
+	AppConfigFile  string
+	DeleteCommands bool
 }
 
 func loadEnv(name string) (string, error) {
@@ -39,12 +40,17 @@ func EnvConfigFromEnv() (*EnvConfig, error) {
 	}
 	guildIDs := strings.Split(guildIDStr, ",")
 
+	// igreno error because this environment variable is optional
+	deleteCommandsStr, _ := loadEnv("DELETE_COMMANDS")
+	deleteCommands := deleteCommandsStr != ""
+
 	appConfigName, err := loadEnv("APP_CONFIG_FILE")
 
 	return &EnvConfig{
-		Token:         token,
-		AppID:         appID,
-		GuildIDs:      guildIDs,
-		AppConfigFile: appConfigName,
+		Token:          token,
+		AppID:          appID,
+		GuildIDs:       guildIDs,
+		AppConfigFile:  appConfigName,
+		DeleteCommands: deleteCommands,
 	}, nil
 }
