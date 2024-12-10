@@ -14,12 +14,13 @@ $ docker compose up prod
 
 `.env` files are supported in current working directory.
 
-| Name              | Discription                         |
-| ----------------- | ----------------------------------- |
-| `TOKEN`           | Discord bot token                   |
-| `APP_ID`          | Application ID of Bot               |
-| `GUILD_IDS`       | Guild IDs to update commands        |
-| `APP_CONFIG_FILE` | Application configuration file name |
+| Name              | Discription                                     |
+| ----------------- | ----------------------------------------------- |
+| `TOKEN`           | Discord bot token                               |
+| `APP_ID`          | Application ID of Bot                           |
+| `GUILD_IDS`       | Guild IDs to update commands                    |
+| `APP_CONFIG_FILE` | Application configuration file name             |
+| `DELETE_COMMANDS` | Delete commands for the bot when the bot starts |
 
 ### Application configuration
 
