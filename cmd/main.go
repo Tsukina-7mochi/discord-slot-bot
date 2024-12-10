@@ -37,7 +37,6 @@ func main() {
 		}
 
 		data := i.ApplicationCommandData()
-		log.Printf("[Command %s] %s", i.ID, data.Name)
 
 		if data.Name == "spin" {
 			slotHandler.HandleSpinCommand(s, i)

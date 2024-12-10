@@ -68,7 +68,7 @@ func (h *SlotHandler) HandleSpinCommand(s *discordgo.Session, i *discordgo.Inter
 				},
 			})
 			if err != nil {
-				log.Printf("[Command %s] Failed to respond interaction: %s", i.ID, err)
+				log.Printf("[Command %s] Failed to respond interaction: %v", i.ID, err)
 				return
 			}
 		}
@@ -108,4 +108,6 @@ func (h *SlotHandler) HandleSpinCommand(s *discordgo.Session, i *discordgo.Inter
 		log.Printf("[Command %s] Failed to respond interaction: %s", i.ID, err)
 		return
 	}
+
+	log.Printf("[Command %s] Spin result: %s", i.ID, builder.String())
 }
