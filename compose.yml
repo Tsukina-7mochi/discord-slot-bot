@@ -9,6 +9,8 @@ services:
         source: ./
         target: /app/
     tty: true
+    profiles:
+      - dev
   prod:
     image: ghcr.io/tsukina-7mochi/discord-slot-bot:latest
     volumes:
